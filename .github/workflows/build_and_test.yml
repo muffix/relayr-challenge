@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ master ]
+
+jobs:
+  checks:
+    name: Code style
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.14
+        id: go
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Check suspicious constructs
+        run: make govet
+      - name: Check order of imports
+        run: make goimports-check
+      - name: Check if modules were tidied up
+        run: make tidy-check
+
+  build_and_test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.14
+        id: go
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Compile
+        run: make compile
+      - name: Tests
+        run: make test-coverprofile
+      - name: Build binary
+        run: make build

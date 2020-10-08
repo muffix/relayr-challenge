@@ -1,0 +1,92 @@
+openapi: "3.0.0"
+info:
+  title: go-microservice-template
+  version: 0.1.0
+  description: Template to be used as the blueprint for a basic microservice
+servers:
+  - url: http://go-microservice-template
+
+paths:
+  /:
+    get:
+      summary: Hello world endpoint
+      description: >
+        Returns a hello world message
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The hello world message
+                    example: "Hello from Go"
+
+  /version:
+    get:
+      summary: Version endpoint
+      description: >
+        Provides information about the version of the service.
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    type: string
+                    description: The commit SHA used to build this version. Empty if this was build manually.
+                    example: a1196e616ac33509b266604d832e8959966ac985
+                  pipelineId:
+                    type: string
+                    description: The ID of the pipeline used to build this version. Empty if this was build manually.
+                    example: "42"
+                  buildDate:
+                    type: string
+                    format: date-time
+                    description: The date (ISO 8601/RFC 3339) when this version was built.
+                    example: "2019-03-30T14:00:52Z"
+                  launchDate:
+                    type: string
+                    format: date-time
+                    description: The date (ISO 8601/RFC 3339) when the service was launched.
+                    example: "2019-03-30T14:00:52Z"
+  /readiness:
+    get:
+      summary: Readiness check
+      description: >
+        Provides an application readiness check
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Returns "OK" on success
+                    example: OK
+  /liveness:
+    get:
+      summary: Liveness check
+      description: >
+        Provides an application liveness check
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Returns "OK" on success
+                    example: OK
