@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"github.com/muffix/go-microservice-template/internal/httpapi"
+	"github.com/muffix/relayr-challenge/internal/httpapi"
 )
 
 var (

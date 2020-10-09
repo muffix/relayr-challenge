@@ -12,7 +12,7 @@ GOVET=$(GOCMD) vet
 GOTOOL=$(GOCMD) tool
 
 BINARY_NAME=service
-BASE_PACKAGE_NAME=github.com/muffix/go-microservice-template
+BASE_PACKAGE_NAME=github.com/muffix/relayr-challenge
 CMD_PACKAGE_NAME=cmd/service
 
 TEST_REPORT_OUTPUT=test-report.out
@@ -44,9 +44,9 @@ build:
 		-v \
 		-ldflags="-w \
 				  -s \
-                  -X github.com/muffix/go-microservice-template/internal/httpapi.revision=${GITHUB_SHA} \
-                  -X github.com/muffix/go-microservice-template/internal/httpapi.pipelineID=${GITHUB_RUN_ID} \
-                  -X github.com/muffix/go-microservice-template/internal/httpapi.buildDate=$(shell date -u +%Y-%m-%dT%TZ)" \
+                  -X github.com/muffix/relayr-challenge/internal/httpapi.revision=${GITHUB_SHA} \
+                  -X github.com/muffix/relayr-challenge/internal/httpapi.pipelineID=${GITHUB_RUN_ID} \
+                  -X github.com/muffix/relayr-challenge/internal/httpapi.buildDate=$(shell date -u +%Y-%m-%dT%TZ)" \
         $(BASE_PACKAGE_NAME)/$(CMD_PACKAGE_NAME)
 
 run:
@@ -56,9 +56,9 @@ run:
 		-v \
 		-ldflags="-w \
 				  -s \
-				  -X github.com/muffix/go-microservice-template/internal/httpapi.revision=dev \
-				  -X github.com/muffix/go-microservice-template/internal/httpapi.pipelineID=dev \
-				  -X github.com/muffix/go-microservice-template/internal/httpapi.buildDate=$(shell date -u +%Y-%m-%dT%TZ)" \
+				  -X github.com/muffix/relayr-challenge/internal/httpapi.revision=dev \
+				  -X github.com/muffix/relayr-challenge/internal/httpapi.pipelineID=dev \
+				  -X github.com/muffix/relayr-challenge/internal/httpapi.buildDate=$(shell date -u +%Y-%m-%dT%TZ)" \
 		$(BASE_PACKAGE_NAME)/$(CMD_PACKAGE_NAME)
 	build/$(BINARY_NAME)
 

@@ -1,4 +1,4 @@
-module github.com/muffix/go-microservice-template
+module github.com/muffix/relayr-challenge
 
 go 1.14
 

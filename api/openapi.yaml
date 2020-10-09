@@ -1,10 +1,10 @@
 openapi: "3.0.0"
 info:
-  title: go-microservice-template
+  title: relayr-challenge
   version: 0.1.0
   description: Template to be used as the blueprint for a basic microservice
 servers:
-  - url: http://go-microservice-template
+  - url: http://relayr-challenge
 
 paths:
   /:
