@@ -26,6 +26,77 @@ components:
           type: object
           description: >
             A map. Keys are healthcheck names, values are the error returned.
+    Offer:
+      type: object
+      properties:
+        product:
+          type: string
+          description: Name of the product
+          example: Towel
+        category:
+          type: string
+          description: Name of the category of the product
+          example: Must Haves
+        supplier:
+          type: string
+          description: Name of the supplier making the offer
+          example: Hitchhiker Essentials
+        price:
+          type: number
+          description: The price
+          example: 42
+    OfferResponse:
+      type: object
+      properties:
+        importedOffersCount:
+          type: number
+          description: Number of offers imported
+          example: 1
+    OfferBatchRequest:
+      type: array
+      items:
+        $ref: '#components/schemas/Offer'
+    OfferErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A description of the error
+          example: invalid character 'L' looking for beginning of value
+    OfferSearchRequest:
+      type: object
+      properties:
+        product:
+          type: string
+          description: Name of the product
+          example: Towel
+        category:
+          type: string
+          description: Name of the category of the product
+          example: Must Haves
+    OfferSearchResponse:
+      type: object
+      properties:
+        product:
+          type: string
+          description: Name of the product
+          example: Towel
+        category:
+          type: string
+          description: Name of the category of the product
+          example: Must Haves
+        offers:
+          type: array
+          items:
+            properties:
+              supplier:
+                type: string
+                description: Name of the supplier making the offer
+                example: Hitchhiker Essentials
+              price:
+                type: number
+                description: The price
+                example: 42
 
 paths:
   /:
@@ -115,3 +186,93 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/HealthBad'
+
+  /api/v1/offer:
+    post:
+      summary: Add a new offer
+      description: >
+        Endpoint for suppliers to POST a new offer for a product to
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Offer'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/OfferResponse'
+        400:
+          description: Malformed request
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/OfferErrorResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/OfferErrorResponse'
+
+  /api/v1/offer/batch:
+    post:
+      summary: Add multiple new offers
+      description: >
+        Endpoint for suppliers to POST multiple offers for products to
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/OfferBatchRequest'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/OfferResponse'
+        400:
+          description: Malformed request
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/OfferErrorResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/OfferErrorResponse'
+
+  /api/v1/offer/search:
+    post:
+      summary: Search for an offer
+      description: >
+        Search for an offer for a product in a category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/OfferSearchRequest'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/OfferSearchResponse'
+        400:
+          description: Malformed request
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/OfferErrorResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/OfferErrorResponse'
