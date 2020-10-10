@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/muffix/relayr-challenge/internal/database"
 )
 
 // Service is the struct representing the service.
@@ -22,6 +23,8 @@ import (
 type Service struct {
 	server *http.Server
 	router *mux.Router
+
+	offers database.Offers
 }
 
 // NewService returns a new service struct.
@@ -39,6 +42,11 @@ func NewService(servicePort int) *Service {
 	service.routes()
 
 	return service
+}
+
+// SetDatabase is a setter for the database
+func (s *Service) SetDatabase(db database.Offers) {
+	s.offers = db
 }
 
 func createServerWithRouter(router http.Handler, port int) *http.Server {

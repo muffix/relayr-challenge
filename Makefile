@@ -30,7 +30,8 @@ LINTERS := \
 .EXPORT_ALL_VARIABLES:
 
 GO111MODULE=on
-CGO_ENABLED=0
+# go-sqlite3 requires cgo to work
+CGO_ENABLED=1
 
 .PHONY: compile build run deps updatedeps testdeps golint vet goimports goimports-check tidy tidy-check test test-coverprofile bench coverage clean
 

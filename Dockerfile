@@ -13,6 +13,9 @@ FROM golang:1.14 as builder
 ARG GITHUB_SHA
 ARG GITHUB_RUN_ID
 
+# go-sqlite3 requires cgo to work
+ENV CGO_ENABLED=1
+
 WORKDIR /app
 COPY . .
 

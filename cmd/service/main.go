@@ -2,12 +2,17 @@ package main
 
 import (
 	"flag"
+	"log"
 
+	"github.com/muffix/relayr-challenge/internal/database"
 	"github.com/muffix/relayr-challenge/internal/httpapi"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var (
-	defaultPort = 8080
+	databasePath = "offers.db"
+	defaultPort  = 8080
 
 	servicePort int
 )
@@ -19,5 +24,13 @@ func processCommandlineArgs() {
 
 func main() {
 	processCommandlineArgs()
-	httpapi.NewService(servicePort).Start()
+	service := httpapi.NewService(servicePort)
+
+	db, err := database.InitSQLiteDatabase(databasePath)
+	if err != nil {
+		log.Fatalf("failed to initialise database: %v", err)
+	}
+
+	service.SetDatabase(db)
+	service.Start()
 }
