@@ -6,6 +6,27 @@ info:
 servers:
   - url: http://relayr-challenge
 
+components:
+  schemas:
+    HealthOK:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Returns "OK" on success
+          example: OK
+    HealthBad:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Returns "Service unavailable" on error
+          example: Service unavailable
+        errors:
+          type: object
+          description: >
+            A map. Keys are healthcheck names, values are the error returned.
+
 paths:
   /:
     get:
@@ -56,6 +77,7 @@ paths:
                     format: date-time
                     description: The date (ISO 8601/RFC 3339) when the service was launched.
                     example: "2019-03-30T14:00:52Z"
+
   /readiness:
     get:
       summary: Readiness check
@@ -67,12 +89,14 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: Returns "OK" on success
-                    example: OK
+                $ref: '#components/schemas/HealthOK'
+        503:
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/HealthBad'
+
   /liveness:
     get:
       summary: Liveness check
@@ -84,9 +108,10 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: Returns "OK" on success
-                    example: OK
+                $ref: '#components/schemas/HealthOK'
+        503:
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/HealthBad'

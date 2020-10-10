@@ -7,6 +7,11 @@ import (
 	"github.com/etherlabsio/healthcheck"
 )
 
+type healthcheckResponse struct {
+	Status string            `json:"status,omitempty"`
+	Errors map[string]string `json:"errors,omitempty"`
+}
+
 // handleLiveness returns an http.HandlerFunc which performs all checks that determine
 // whether the service is alive.
 //
@@ -17,9 +22,11 @@ func (s *Service) handleLiveness() http.HandlerFunc {
 		// WithTimeout allows you to set a max overall timeout.
 		healthcheck.WithTimeout(5*time.Second),
 
-		// Checkers will fail the status in case of an error
+		// Checkers will fail the status in case of an error.
+		// Since we're talking about a SQLite database, it makes sense to kill the container
+		// in this case and have it create a new, empty database.
 		healthcheck.WithChecker(
-			"example", customChecker{},
+			"database", &databaseChecker{service: s},
 		),
 
 		// Observers (as opposed to checkers) do not fail the status in case of an error.
