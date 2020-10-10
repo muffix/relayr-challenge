@@ -10,4 +10,14 @@ func (s *Service) routes() {
 
 	// New routes go here
 	s.router.HandleFunc("/", s.logRequest(s.handleHomePage()))
+
+	s.router.HandleFunc("/api/v1/offer/search", s.handleOfferSearch()).
+		Headers("Content-Type", "application/json").
+		Methods("POST")
+	s.router.HandleFunc("/api/v1/offer", s.handleOffer()).
+		Headers("Content-Type", "application/json").
+		Methods("POST")
+	s.router.HandleFunc("/api/v1/offer/batch", s.handleOfferBatch()).
+		Headers("Content-Type", "application/json").
+		Methods("POST")
 }
