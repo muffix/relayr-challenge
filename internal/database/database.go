@@ -12,6 +12,7 @@ const (
 	getOfferQuery         = "SELECT product, category, supplier, price FROM offers WHERE product=? AND category=? ORDER BY price ASC"
 )
 
+// Offers is an interface for a database client
 type Offers interface {
 	Insert(productName, categoryName, supplierName string, price float32) error
 	InsertMultiple(offers []Offer) error
@@ -19,6 +20,7 @@ type Offers interface {
 	Close() error
 }
 
+// OffersSQLiteDatabase is a database client using SQLite
 type OffersSQLiteDatabase sql.DB
 
 // Offer is a struct representing an offer for a product by a supplier
@@ -27,7 +29,7 @@ type Offer struct {
 	Price                       float32
 }
 
-// InitDatabase opens the database and sets it up if needed.
+// InitSQLiteDatabase opens the database and sets it up if needed.
 // Returns a database handle.
 func InitSQLiteDatabase(dbPath string) (*OffersSQLiteDatabase, error) {
 	db, err := sql.Open("sqlite3", dbPath)
@@ -43,7 +45,7 @@ func InitSQLiteDatabase(dbPath string) (*OffersSQLiteDatabase, error) {
 	return (*OffersSQLiteDatabase)(db), nil
 }
 
-// InsertOffer inserts an offer into the database
+// Insert inserts an offer into the database
 //
 // If an offer for an existing product, category and supplier exists, the offer is updated.
 func (d *OffersSQLiteDatabase) Insert(productName, categoryName, supplierName string, price float32) error {
@@ -57,7 +59,7 @@ func (d *OffersSQLiteDatabase) Insert(productName, categoryName, supplierName st
 	})
 }
 
-// InsertOffers inserts multiple offers into the database in a transaction
+// InsertMultiple inserts multiple offers into the database in a transaction
 //
 // If an offer for an existing product, category and supplier exists, the offer is updated.
 func (d *OffersSQLiteDatabase) InsertMultiple(offers []Offer) (err error) {
@@ -94,7 +96,7 @@ func (d *OffersSQLiteDatabase) InsertMultiple(offers []Offer) (err error) {
 	return
 }
 
-// GetOffers returns all offers for a given product in a category
+// Get returns all offers for a given product in a category
 func (d *OffersSQLiteDatabase) Get(productName, categoryName string) ([]Offer, error) {
 	db := (*sql.DB)(d)
 	rows, err := db.Query(getOfferQuery, productName, categoryName)
@@ -120,6 +122,7 @@ func (d *OffersSQLiteDatabase) Get(productName, categoryName string) ([]Offer, e
 	return offers, nil
 }
 
+// Close closes the database connection
 func (d *OffersSQLiteDatabase) Close() error {
 	return (*sql.DB)(d).Close()
 }
