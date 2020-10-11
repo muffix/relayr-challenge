@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  api:
+    build: .
+    command: ls /
+    ports:
+      - 8080:8080

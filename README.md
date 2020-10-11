@@ -86,6 +86,11 @@ To start the service in a Docker container, run the following command:
 docker run -p 8080:8080 relayr-challenge
 ```
 
+Alternatively, you can run the service with `docker-compose`. Remember to rebuild the image if you change the code.
+
+```shell script
+docker-compose up
+````
 The service will then be available at http://localhost:8080.
 
 [Relayr]: https://relayr.io
