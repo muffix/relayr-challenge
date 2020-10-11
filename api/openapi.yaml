@@ -2,9 +2,10 @@ openapi: "3.0.0"
 info:
   title: relayr-challenge
   version: 0.1.0
-  description: Template to be used as the blueprint for a basic microservice
+  description: API documentation for the service implementing the Relayr challenge
 servers:
   - url: http://relayr-challenge
+  - url: http://localhost:8080
 
 components:
   schemas:
@@ -15,6 +16,8 @@ components:
           type: string
           description: Returns "OK" on success
           example: OK
+      required:
+        - status
     HealthBad:
       type: object
       properties:
@@ -26,6 +29,9 @@ components:
           type: object
           description: >
             A map. Keys are healthcheck names, values are the error returned.
+      required:
+        - status
+        - errors
     Offer:
       type: object
       properties:
@@ -45,6 +51,11 @@ components:
           type: number
           description: The price
           example: 42
+      required:
+        - product
+        - category
+        - supplier
+        - price
     OfferResponse:
       type: object
       properties:
@@ -52,10 +63,12 @@ components:
           type: number
           description: Number of offers imported
           example: 1
+      required:
+        - importedOffersCount
     OfferBatchRequest:
       type: array
       items:
-        $ref: '#components/schemas/Offer'
+        $ref: '#/components/schemas/Offer'
     OfferErrorResponse:
       type: object
       properties:
@@ -63,6 +76,8 @@ components:
           type: string
           description: A description of the error
           example: invalid character 'L' looking for beginning of value
+      required:
+        - error
     OfferSearchRequest:
       type: object
       properties:
@@ -74,6 +89,9 @@ components:
           type: string
           description: Name of the category of the product
           example: Must Haves
+      required:
+        - product
+        - category
     OfferSearchResponse:
       type: object
       properties:
@@ -88,6 +106,7 @@ components:
         offers:
           type: array
           items:
+            type: object
             properties:
               supplier:
                 type: string
@@ -97,7 +116,13 @@ components:
                 type: number
                 description: The price
                 example: 42
-
+            required:
+              - supplier
+              - price
+      required:
+        - product
+        - category
+        - offers
 paths:
   /:
     get:
@@ -116,6 +141,8 @@ paths:
                     type: string
                     description: The hello world message
                     example: "Hello from Go"
+                required:
+                  - message
 
   /version:
     get:
@@ -148,6 +175,11 @@ paths:
                     format: date-time
                     description: The date (ISO 8601/RFC 3339) when the service was launched.
                     example: "2019-03-30T14:00:52Z"
+                required:
+                  - revision
+                  - pipelineId
+                  - buildDate
+                  - launchDate
 
   /readiness:
     get:
@@ -160,13 +192,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/HealthOK'
+                $ref: '#/components/schemas/HealthOK'
         503:
           description: Service unavailable
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/HealthBad'
+                $ref: '#/components/schemas/HealthBad'
 
   /liveness:
     get:
@@ -179,13 +211,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/HealthOK'
+                $ref: '#/components/schemas/HealthOK'
         503:
           description: Service unavailable
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/HealthBad'
+                $ref: '#/components/schemas/HealthBad'
 
   /api/v1/offer:
     post:
@@ -196,26 +228,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#components/schemas/Offer'
+              $ref: '#/components/schemas/Offer'
       responses:
         200:
           description: Ok
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/OfferResponse'
+                $ref: '#/components/schemas/OfferResponse'
         400:
           description: Malformed request
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/OfferErrorResponse'
+                $ref: '#/components/schemas/OfferErrorResponse'
         500:
           description: Internal error
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/OfferErrorResponse'
+                $ref: '#/components/schemas/OfferErrorResponse'
 
   /api/v1/offer/batch:
     post:
@@ -226,26 +258,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#components/schemas/OfferBatchRequest'
+              $ref: '#/components/schemas/OfferBatchRequest'
       responses:
         200:
           description: Ok
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/OfferResponse'
+                $ref: '#/components/schemas/OfferResponse'
         400:
           description: Malformed request
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/OfferErrorResponse'
+                $ref: '#/components/schemas/OfferErrorResponse'
         500:
           description: Internal error
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/OfferErrorResponse'
+                $ref: '#/components/schemas/OfferErrorResponse'
 
   /api/v1/offer/search:
     post:
@@ -256,23 +288,23 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#components/schemas/OfferSearchRequest'
+              $ref: '#/components/schemas/OfferSearchRequest'
       responses:
         200:
           description: Ok
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/OfferSearchResponse'
+                $ref: '#/components/schemas/OfferSearchResponse'
         400:
           description: Malformed request
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/OfferErrorResponse'
+                $ref: '#/components/schemas/OfferErrorResponse'
         500:
           description: Internal error
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/OfferErrorResponse'
+                $ref: '#/components/schemas/OfferErrorResponse'

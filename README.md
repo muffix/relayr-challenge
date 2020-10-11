@@ -13,6 +13,17 @@ This means I can store all offers in one table. In a real-world implementation, 
 [like this](https://dbdiagram.io/d/5f818af93a78976d7b771a06): 
 ![Database schema](docs/better_database_schema.png)
 
+## API documentation
+The API documentation can be found in the file [`openapi.yaml`](api/openapi.yaml) in the OpenAPI 3.0 format. A rendered, 
+dependency-free HTML version exists in [docs/html/index.html](docs/html/index.html).
+
+The documentation can be rebuilt with the following command. It requires the 
+[OpenAPI generator](https://openapi-generator.tech/docs/installation).
+
+```shell script
+openapi-generator generate -i api/openapi.yaml -g html2 -o docs/html
+``` 
+
 ## Prerequisites and setting up the build environment
 This project uses Go modules. As such, all you need is a recent version of Go (`1.14+`) installed. Dependencies will be 
 automatically installed when `go build` is called (e.g. as part of `make build`). Details about all `make` targets can
