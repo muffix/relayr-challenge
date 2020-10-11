@@ -112,6 +112,10 @@ components:
                 type: string
                 description: Name of the supplier making the offer
                 example: Hitchhiker Essentials
+              reviewScore:
+                type: number
+                description: The average score in the supplier's customer reviews (between 1 and 5)
+                example: 4.2
               price:
                 type: number
                 description: The price

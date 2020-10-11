@@ -998,6 +998,11 @@ ul.nav-tabs {
       "description" : "Name of the supplier making the offer",
       "example" : "Hitchhiker Essentials"
     },
+    "reviewScore" : {
+      "type" : "number",
+      "description" : "The average score in the supplier's customer reviews (between 1 and 5)",
+      "example" : 4.2
+    },
     "price" : {
       "type" : "number",
       "description" : "The price",
@@ -1033,14 +1038,14 @@ ul.nav-tabs {
                     <li data-group="Default" data-name="apiV1OfferSearchPost" class="">
                       <a href="#api-Default-apiV1OfferSearchPost">apiV1OfferSearchPost</a>
                     </li>
-                    <li data-group="Default" data-name="get Home" class="">
-                      <a href="#api-Default-get Home">get Home</a>
-                    </li>
                     <li data-group="Default" data-name="livenessGet" class="">
                       <a href="#api-Default-livenessGet">livenessGet</a>
                     </li>
                     <li data-group="Default" data-name="readinessGet" class="">
                       <a href="#api-Default-readinessGet">readinessGet</a>
+                    </li>
+                    <li data-group="Default" data-name="rootGet" class="">
+                      <a href="#api-Default-rootGet">rootGet</a>
                     </li>
                     <li data-group="Default" data-name="versionGet" class="">
                       <a href="#api-Default-versionGet">versionGet</a>
@@ -2517,301 +2522,6 @@ $(document).ready(function() {
                         </article>
                       </div>
                       <hr>
-                    <div id="api-Default-get Home">
-                      <article id="api-Default-get Home-0" data-group="User" data-name="get Home" data-version="0">
-                        <div class="pull-left">
-                          <h1>get Home</h1>
-                          <p>Hello world endpoint</p>
-                        </div>
-                        <div class="pull-right"></div>
-                        <div class="clearfix"></div>
-                        <p></p>
-                        <p class="marked">Returns a hello world message
-</p>
-                        <p></p>
-                        <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/</span></code></pre>
-                        <p>
-                          <h3>Usage and SDK Samples</h3>
-                        </p>
-                        <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Default-get Home-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Default-get Home-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Default-get Home-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Default-get Home-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Default-get Home-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Default-get Home-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Default-get Home-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Default-get Home-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Default-get Home-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Default-get Home-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Default-get Home-0-python">Python</a></li>
-                          <li class=""><a href="#examples-Default-get Home-0-rust">Rust</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Default-get Home-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://relayr-challenge/"</code></pre>
-                          </div>
-                          <div class="tab-pane" id="examples-Default-get Home-0-java">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.model.*;
-import org.openapitools.client.api.DefaultApi;
-
-import java.io.File;
-import java.util.*;
-
-public class DefaultApiExample {
-
-    public static void main(String[] args) {
-        
-        DefaultApi apiInstance = new DefaultApi();
-        try {
-            inline_response_200 result = apiInstance.get Home();
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling DefaultApi#get Home");
-            e.printStackTrace();
-        }
-    }
-}
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Default-get Home-0-android">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
-
-public class DefaultApiExample {
-
-    public static void main(String[] args) {
-        DefaultApi apiInstance = new DefaultApi();
-        try {
-            inline_response_200 result = apiInstance.get Home();
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling DefaultApi#get Home");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-  <!--
-  <div class="tab-pane" id="examples-Default-get Home-0-groovy">
-  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-  </div> -->
-                            <div class="tab-pane" id="examples-Default-get Home-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
-DefaultApi *apiInstance = [[DefaultApi alloc] init];
-
-// Hello world endpoint
-[apiInstance get HomeWithCompletionHandler: 
-              ^(inline_response_200 output, NSError* error) {
-                            if (output) {
-                                NSLog(@"%@", output);
-                            }
-                            if (error) {
-                                NSLog(@"Error: %@", error);
-                            }
-                        }];
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Default-get Home-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var RelayrChallenge = require('relayr_challenge');
-
-var api = new RelayrChallenge.DefaultApi()
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.get Home(callback);
-</code></pre>
-                            </div>
-
-                            <!--<div class="tab-pane" id="examples-Default-get Home-0-angular">
-              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-            </div>-->
-                            <div class="tab-pane" id="examples-Default-get Home-0-csharp">
-                              <pre class="prettyprint"><code class="language-cs">using System;
-using System.Diagnostics;
-using Org.OpenAPITools.Api;
-using Org.OpenAPITools.Client;
-using Org.OpenAPITools.Model;
-
-namespace Example
-{
-    public class get HomeExample
-    {
-        public void main()
-        {
-            
-            var apiInstance = new DefaultApi();
-
-            try
-            {
-                // Hello world endpoint
-                inline_response_200 result = apiInstance.get Home();
-                Debug.WriteLine(result);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling DefaultApi.get Home: " + e.Message );
-            }
-        }
-    }
-}
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Default-get Home-0-php">
-                              <pre class="prettyprint"><code class="language-php"><&#63;php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-$api_instance = new OpenAPITools\Client\Api\DefaultApi();
-
-try {
-    $result = $api_instance->get Home();
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->get Home: ', $e->getMessage(), PHP_EOL;
-}
-?></code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Default-get Home-0-perl">
-                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
-use WWW::OPenAPIClient::Configuration;
-use WWW::OPenAPIClient::DefaultApi;
-
-my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
-
-eval { 
-    my $result = $api_instance->get Home();
-    print Dumper($result);
-};
-if ($@) {
-    warn "Exception when calling DefaultApi->get Home: $@\n";
-}</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Default-get Home-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# create an instance of the API class
-api_instance = openapi_client.DefaultApi()
-
-try: 
-    # Hello world endpoint
-    api_response = api_instance.get_home()
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DefaultApi->get Home: %s\n" % e)</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Default-get Home-0-rust">
-                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
-
-pub fn main() {
-
-    let mut context = DefaultApi::Context::default();
-    let result = client.get Home(&context).wait();
-    println!("{:?}", result);
-
-}
-</code></pre>
-                            </div>
-                          </div>
-
-                          <h2>Scopes</h2>
-                          <table>
-                            
-                          </table>
-
-                          <h2>Parameters</h2>
-
-
-
-
-
-
-                          <h2>Responses</h2>
-                            <h3 id="examples-Default-get Home-title-200"></h3>
-                            <p id="examples-Default-get Home-description-200" class="marked"></p>
-                            <script>
-                              var responseDefault200_description = `Ok`;
-                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
-                              if (responseDefault200_description_break == -1) {
-                                $("#examples-Default-get Home-title-200").text("Status: 200 - " + responseDefault200_description);
-                              } else {
-                                $("#examples-Default-get Home-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
-                                $("#examples-Default-get Home-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
-                              }
-                            </script>
-
-
-                            <ul id="responses-detail-Default-get Home-200" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Default-get Home-200-schema">Schema</a>
-                                </li>
-
-
-
-
-                            </ul>
-
-
-                            <div class="tab-content" id="responses-Default-get Home-200-wrapper" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-Default-get Home-200-schema">
-                                  <div id="responses-Default-get Home-schema-200" class="exampleStyle">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Ok",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/inline_response_200"
-      }
-    }
-  }
-};
-                                        var schema = findNode('schema',schemaWrapper).schema;
-                                        if (!schema) {
-                                            schema = schemaWrapper.schema;
-                                        }
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else if (schema.items != null && schema.items.$ref != null) {
-                                            schema.items = defsParser.$refs.get(schema.items.$ref);
-                                        } else {
-                                          schemaWrapper.definitions = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-Default-get Home-200-schema-data').val(JSON.stringify(schema));
-                                        var result = $('#responses-Default-get Home-schema-200');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-Default-get Home-200-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-                        </article>
-                      </div>
-                      <hr>
                     <div id="api-Default-livenessGet">
                       <article id="api-Default-livenessGet-0" data-group="User" data-name="livenessGet" data-version="0">
                         <div class="pull-left">
@@ -3529,6 +3239,301 @@ pub fn main() {
                                     </script>
                                   </div>
                                   <input id='responses-Default-readinessGet-503-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-rootGet">
+                      <article id="api-Default-rootGet-0" data-group="User" data-name="rootGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>rootGet</h1>
+                          <p>Hello world endpoint</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Returns a hello world message
+</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-rootGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-rootGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-rootGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-rootGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-rootGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-rootGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-rootGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-rootGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-rootGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-rootGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-rootGet-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-rootGet-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-rootGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://relayr-challenge/"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-rootGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            inline_response_200 result = apiInstance.rootGet();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#rootGet");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-rootGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            inline_response_200 result = apiInstance.rootGet();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#rootGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-rootGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-rootGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// Hello world endpoint
+[apiInstance rootGetWithCompletionHandler: 
+              ^(inline_response_200 output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-rootGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var RelayrChallenge = require('relayr_challenge');
+
+var api = new RelayrChallenge.DefaultApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.rootGet(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-rootGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-rootGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class rootGetExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+
+            try
+            {
+                // Hello world endpoint
+                inline_response_200 result = apiInstance.rootGet();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.rootGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-rootGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+
+try {
+    $result = $api_instance->rootGet();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->rootGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-rootGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+
+eval { 
+    my $result = $api_instance->rootGet();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->rootGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-rootGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+
+try: 
+    # Hello world endpoint
+    api_response = api_instance.root_get()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->rootGet: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-rootGet-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.rootGet(&context).wait();
+    println!("{:?}", result);
+
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-rootGet-title-200"></h3>
+                            <p id="examples-Default-rootGet-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `Ok`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-rootGet-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-rootGet-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-rootGet-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-rootGet-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Default-rootGet-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-rootGet-200-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-Default-rootGet-200-schema">
+                                  <div id="responses-Default-rootGet-schema-200" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Ok",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_200"
+      }
+    }
+  }
+};
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                            schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-Default-rootGet-200-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-Default-rootGet-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-Default-rootGet-200-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
                         </article>

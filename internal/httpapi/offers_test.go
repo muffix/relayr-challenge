@@ -25,8 +25,9 @@ func (mock *mockDB) InsertMultiple(_ []database.Offer) error { return nil }
 func (mock *mockDB) Close() error                            { return nil }
 func (mock *mockDB) Get(_, _ string) ([]database.Offer, error) {
 	return []database.Offer{
-		{"Towel", "Must Haves", "Hitchhiker Essentials", 42},
-		{"Towel", "Must Haves", "Hitchhiker Essentials, just more expensive", 44},
+		{Product: "Towel", Category: "Must Haves", Supplier: "Hitchhiker Essentials, just more expensive", Price: 44},
+		{Product: "Towel", Category: "Must Haves", Supplier: "Hitchhiker Essentials", Price: 42},
+		{Product: "Towel", Category: "Must Haves", Supplier: "Hitchhiker Knockoffs", Price: 42},
 	}, nil
 }
 
@@ -37,6 +38,27 @@ func (mock *mockErrorDB) Insert(_, _, _ string, _ float32) error    { return fmt
 func (mock *mockErrorDB) InsertMultiple(_ []database.Offer) error   { return fmt.Errorf("error") }
 func (mock *mockErrorDB) Close() error                              { return fmt.Errorf("error") }
 func (mock *mockErrorDB) Get(_, _ string) ([]database.Offer, error) { return nil, fmt.Errorf("error") }
+
+type mockReviewer struct{}
+
+func (m *mockReviewer) Suppliers(supplierNames []string) (map[string]float32, error) {
+	scores := make(map[string]float32)
+	for _, sup := range supplierNames {
+		if sup == "Hitchhiker Knockoffs" {
+			scores[sup] = 1
+		} else {
+			scores[sup] = 3
+		}
+
+	}
+	return scores, nil
+}
+
+type mockErrorReviewer struct{}
+
+func (m *mockErrorReviewer) Suppliers(supplierNames []string) (map[string]float32, error) {
+	return nil, fmt.Errorf("error")
+}
 
 func prepareTestRequest(requestBody string) (*httptest.ResponseRecorder, *http.Request) {
 	req := httptest.NewRequest(
@@ -155,6 +177,7 @@ func TestBatchOfferHandler_withDBError(t *testing.T) {
 func TestOfferSearch(t *testing.T) {
 	service := NewService(1234)
 	service.SetDatabase(&mockDB{})
+	service.SetReviewer(&mockReviewer{})
 
 	offerSuccessScenario(
 		t,
@@ -166,12 +189,19 @@ func TestOfferSearch(t *testing.T) {
 			Category: "Must Haves",
 			Offers: []offerData{
 				{
-					Supplier: "Hitchhiker Essentials",
-					Price:    42,
+					Supplier:    "Hitchhiker Essentials",
+					ReviewScore: 3,
+					Price:       42,
 				},
 				{
-					Supplier: "Hitchhiker Essentials, just more expensive",
-					Price:    44,
+					Supplier:    "Hitchhiker Knockoffs",
+					ReviewScore: 1,
+					Price:       42,
+				},
+				{
+					Supplier:    "Hitchhiker Essentials, just more expensive",
+					ReviewScore: 3,
+					Price:       44,
 				},
 			},
 		},
@@ -197,5 +227,17 @@ func TestOfferSearch_withDBError(t *testing.T) {
 		service.handleOfferSearch(),
 		offerSearchBody,
 		http.StatusInternalServerError,
+	)
+}
+
+func TestOfferSearch_withReviewerError(t *testing.T) {
+	service := NewService(1234)
+	service.SetDatabase(&mockDB{})
+	service.SetReviewer(&mockErrorReviewer{})
+	offerErrorScenario(
+		t,
+		service.handleOfferSearch(),
+		offerSearchBody,
+		http.StatusBadGateway,
 	)
 }

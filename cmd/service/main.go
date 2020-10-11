@@ -6,6 +6,7 @@ import (
 
 	"github.com/muffix/relayr-challenge/internal/database"
 	"github.com/muffix/relayr-challenge/internal/httpapi"
+	"github.com/muffix/relayr-challenge/internal/review"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -32,5 +33,6 @@ func main() {
 	}
 
 	service.SetDatabase(db)
+	service.SetReviewer(&review.Client{})
 	service.Start()
 }

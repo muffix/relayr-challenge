@@ -11,6 +11,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/muffix/relayr-challenge/internal/database"
+	"github.com/muffix/relayr-challenge/internal/review"
 )
 
 // Service is the struct representing the service.
@@ -24,7 +25,8 @@ type Service struct {
 	server *http.Server
 	router *mux.Router
 
-	offers database.Offers
+	offers   database.Offers
+	reviewer review.Reviewer
 }
 
 // NewService returns a new service struct.
@@ -47,6 +49,11 @@ func NewService(servicePort int) *Service {
 // SetDatabase is a setter for the database
 func (s *Service) SetDatabase(db database.Offers) {
 	s.offers = db
+}
+
+// SetReviewer is a setter for a client of a reviews engine
+func (s *Service) SetReviewer(r review.Reviewer) {
+	s.reviewer = r
 }
 
 func createServerWithRouter(router http.Handler, port int) *http.Server {
