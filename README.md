@@ -93,4 +93,27 @@ docker-compose up
 ````
 The service will then be available at http://localhost:8080.
 
+## Deployment
+The service comes with a [Helm] chart named `relayr-challenge` in the `deploy` directory. This facilitates the 
+deployment to a Kubernetes cluster. It deploys two replicas by default. 
+
+To use it locally, we can use [Minikube] and [Helm]. This enables the ingress and registry addons, builds a Docker 
+image, pushes it to Minikube's registry, and deploys the service.  
+
+```shell script
+minikube start --vm=true
+minikube addons enable ingress
+minikube addons enable registry
+eval $(minikube -p minikube docker-env)
+docker build -t relayr-challenge .
+helm init
+cd deploy
+helm install --name relayr relayr-challenge
+```
+
+Once that's set up, we can add an entry to our `/etc/hosts` file which points the name `relayr-challenge` at the IP of
+Minikube's virtual machine. 
+
+[Minikube]: https://minikube.sigs.k8s.io/docs/start/
 [Relayr]: https://relayr.io
+[Helm]: https://helm.sh

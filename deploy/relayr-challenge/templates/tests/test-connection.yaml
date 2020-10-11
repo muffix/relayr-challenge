@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "relayr-challenge.fullname" . }}-test-connection"
+  labels:
+{{ include "relayr-challenge.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "relayr-challenge.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
